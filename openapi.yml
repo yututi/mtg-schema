@@ -1,0 +1,47 @@
+openapi: '3.0.2'
+info:
+  title: MTG API
+  version: '1.0'
+servers:
+  - url: https://api.server.test/v1
+paths:
+  /s/{page}:
+    get:
+      parameters:
+        - in: path
+          name: page
+          schema:
+            type: integer
+          required: true
+        - in: query
+          name: color
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - B
+                - W
+                - U
+                - G
+                - R
+                - NONE
+        - in: query
+          name: cost
+          schema:
+            type: integer
+        - in: query
+          name: cost
+          schema:
+            type: string
+            pattern: /^(gt|lt|eq):([0-9]*)/
+        - in: query
+          name: type
+          schema:
+            type: array
+            items:
+              type: string
+
+      responses:
+        '200':
+          description: OK

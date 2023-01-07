@@ -11,9 +11,10 @@ datasource db {
 }
 
 model LastImported {
+  sha String
   at DateTime
 
-  @@id([at])
+  @@id([sha])
 }
 
 model Set {
@@ -26,7 +27,7 @@ model Set {
 // 以下から日本語データだけ抽出したレコード
 // https://mtgjson.com/data-models/card-atomic/
 model Card {
-  id              Int           @id @default(autoincrement())
+  uuid            String           @id
   name            String
   manaCost        String? // ex {1}{W}{B}
   manaValue       Float? // ex 3.0
@@ -41,6 +42,13 @@ model Card {
   power           String?
   toughness       String?
   loyalty         String?
+  rarity          String?
+  scryfallId      String?
+  otherFaceUuid     String?
+
+  isImageImported Boolean       @default(false)   // scryfallから画像取得したらtrue
+
+  // importJsonのタイミングでは空
   setsOnCards     SetsOnCards[]
 
   @@index([colorIdentities], type: Gin)
@@ -49,8 +57,8 @@ model Card {
 }
 
 model SetsOnCards {
-  card   Card @relation(fields: [cardId], references: [id])
-  cardId Int // relation scalar field (used in the `@relation` attribute above)
+  card   Card @relation(fields: [cardId], references: [uuid])
+  cardId String // relation scalar field (used in the `@relation` attribute above)
   set    Set  @relation(fields: [setId], references: [id])
   setId  Int // relation scalar field (used in the `@relation` attribute above)
 

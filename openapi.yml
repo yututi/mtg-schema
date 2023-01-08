@@ -119,7 +119,6 @@ components:
       required:
         - uuid
         - name
-        - types
       properties:
         uuid:
           type: string
@@ -127,34 +126,44 @@ components:
           type: string
         manaCost:
           type: string
+          nullable: true
         manaValue:
           type: integer
+          nullable: true
         text:
           type: string
+          nullable: true
         flavorText:
           type: string
+          nullable: true
         types:
           type: array
           items:
             type: string
+          nullable: true
         superTypes:
           type: array
           items:
             type: string
+          nullable: true
         subTypes:
           type: array
           items:
             type: string
+          nullable: true
         rarity:
           type: string
         power:
           type: string
+          nullable: true
         toughness:
           type: string
+          nullable: true
         loyalty:
           type: string
+          nullable: true
         setCode:
           type: string
         otherFaceUuid:
           type: string
-        
+          nullable: true

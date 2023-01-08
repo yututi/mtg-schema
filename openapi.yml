@@ -34,7 +34,8 @@ paths:
           name: cost
           schema:
             type: string
-            pattern: /^(gt|lt|equals):([0-9]*)/
+            # pattern: /^(gte|lte|equals):[0-9]*/ なんかvalidation通らないのでとりあえずコメントアウト
+          allowReserved: true
         - in: query
           name: types
           schema:
@@ -43,6 +44,12 @@ paths:
               type: string
         - in: query
           name: rarity
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: setCode
           schema:
             type: array
             items:
@@ -56,6 +63,8 @@ paths:
                 type: object
                 properties:
                   page:
+                    type: integer
+                  pageSize:
                     type: integer
                   count:
                     type: integer
@@ -79,14 +88,36 @@ paths:
             application/json:
               schema: 
                 type: object
-                $ref: '#/components/schemas/Card'
+                $ref: '#/components/schemas/CardDetail'
 
 components:
   schemas:
     Card:
       type: object
       required:
-        - id
+        - uuid
+        - name
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+        manaCost:
+          type: string
+          nullable: true
+        rarity:
+          type: string
+          nullable: true
+        setCode:
+          type: string
+          nullable: true
+        otherFaceUuid:
+          type: string
+          nullable: true
+    CardDetail:
+      type: object
+      required:
+        - uuid
         - name
         - types
       properties:

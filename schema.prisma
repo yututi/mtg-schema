@@ -50,6 +50,9 @@ model Card {
 
   isImageImported Boolean @default(false) // scryfallから画像取得したらtrue
 
+  @@index([setCode], type: Hash)
+  @@index([rarity], type: Hash)
+  @@index([manaValue], type: Hash)
   @@index([colorIdentities], type: Gin)
   @@index([name], type: Hash)
   @@index([types], type: Gin)

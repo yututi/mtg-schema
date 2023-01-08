@@ -3,9 +3,9 @@ info:
   title: MTG API
   version: '1.0'
 servers:
-  - url: https://api.server.test/v1
+  - url: http://localhost:3000/
 paths:
-  /s/{page}:
+  /api/card/page/{page}:
     get:
       parameters:
         - in: path
@@ -13,6 +13,10 @@ paths:
           schema:
             type: integer
           required: true
+        - in: query
+          name: name
+          schema:
+            type: string
         - in: query
           name: color
           schema:
@@ -29,19 +33,97 @@ paths:
         - in: query
           name: cost
           schema:
-            type: integer
-        - in: query
-          name: cost
-          schema:
             type: string
-            pattern: /^(gt|lt|eq):([0-9]*)/
+            pattern: /^(gt|lt|equals):([0-9]*)/
         - in: query
-          name: type
+          name: types
           schema:
             type: array
             items:
               type: string
-
+        - in: query
+          name: rarity
+          schema:
+            type: array
+            items:
+              type: string
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  page:
+                    type: integer
+                  count:
+                    type: integer
+                  list:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Card'
+
+  /api/card/detail/{uuid}:
+    get:
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: 
+                type: object
+                $ref: '#/components/schemas/Card'
+
+components:
+  schemas:
+    Card:
+      type: object
+      required:
+        - id
+        - name
+        - types
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+        manaCost:
+          type: string
+        manaValue:
+          type: integer
+        text:
+          type: string
+        flavorText:
+          type: string
+        types:
+          type: array
+          items:
+            type: string
+        superTypes:
+          type: array
+          items:
+            type: string
+        subTypes:
+          type: array
+          items:
+            type: string
+        rarity:
+          type: string
+        power:
+          type: string
+        toughness:
+          type: string
+        loyalty:
+          type: string
+        setCode:
+          type: string
+        otherFaceUuid:
+          type: string
+        

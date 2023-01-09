@@ -72,6 +72,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Card'
+      operationId: getList
+      description: 'カードの一覧を取得する'
+      tags:
+        - card
 
   /api/card/detail/{uuid}:
     get:
@@ -89,6 +93,10 @@ paths:
               schema: 
                 type: object
                 $ref: '#/components/schemas/CardDetail'
+      operationId: getOne
+      description: 'カードの詳細を取得する'
+      tags:
+        - card
 
 components:
   schemas:

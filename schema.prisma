@@ -44,7 +44,9 @@ model Card {
   rarity          String?
   scryfallId      String?
   otherFaceUuid   String?
+  isFrontFace     Boolean // 両面カードの場合に表か
   setCode         String
+  number          String // 基本的に数値。頭にA-がついていたらAlchemy、お尻に⭐️がついていたりする（実際のカードの印刷準拠）
 
   set Set @relation(fields: [setCode], references: [code])
 
@@ -54,6 +56,7 @@ model Card {
   @@index([rarity], type: Hash)
   @@index([manaValue], type: Hash)
   @@index([colorIdentities], type: Gin)
+  @@index([otherFaceUuid], type: Hash)
   @@index([name], type: Hash)
   @@index([types], type: Gin)
 }

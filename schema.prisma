@@ -43,8 +43,9 @@ model Card {
   loyalty         String?
   rarity          String?
   scryfallId      String?
-  otherFaceUuid   String?
-  isFrontFace     Boolean // 両面カードの場合に表か
+  otherFaceUuid   String? // ここに値がある場合はふたつ呪文を持つカード
+  isMainSpell     Boolean @default(false) // ふたつ呪文をもつ場合、メインの呪文か(両面カードの場合表面)
+  isReversible    Boolean @default(false) // 両面カードか
   setCode         String
   number          String // 基本的に数値。頭にA-がついていたらAlchemy、お尻に⭐️がついていたりする（実際のカードの印刷準拠）
 

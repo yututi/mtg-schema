@@ -60,18 +60,8 @@ paths:
           content:
             application/json:
               schema: 
-                type: object
-                properties:
-                  page:
-                    type: integer
-                  pageSize:
-                    type: integer
-                  count:
-                    type: integer
-                  list:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Card'
+                nullable: false
+                $ref: '#/components/schemas/CardPagination'
       operationId: getList
       description: 'カードの一覧を取得する'
       tags:
@@ -91,7 +81,6 @@ paths:
           content:
             application/json:
               schema: 
-                type: object
                 $ref: '#/components/schemas/CardDetail'
       operationId: getOne
       description: 'カードの詳細を取得する'
@@ -100,6 +89,24 @@ paths:
 
 components:
   schemas:
+    CardPagination:
+      type: object
+      properties:
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        count:
+          type: integer
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/Card'
+      required:
+        - page
+        - pageSize
+        - count
+        - list
     Card:
       type: object
       required:

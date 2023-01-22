@@ -87,6 +87,22 @@ paths:
       tags:
         - card
 
+  /api/set:
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Set'
+      operationId: getAllSet
+      description: 'セットの一覧'
+      tags:
+        - card
+
 components:
   schemas:
     CardPagination:
@@ -129,6 +145,7 @@ components:
         otherFaceUuid:
           type: string
           nullable: true
+
     CardDetail:
       type: object
       required:
@@ -182,3 +199,14 @@ components:
         otherFaceUuid:
           type: string
           nullable: true
+
+    Set:
+      type: object
+      required:
+        - code
+        - name
+      properties:
+        code:
+          type: string
+        name:
+          type: string
